@@ -1,0 +1,14 @@
+# Build outputs
+/sin-th2-web
+*.exe
+*.test
+*.out
+
+# Local environment and editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Logs and temporary files
+*.log
+*.tmp

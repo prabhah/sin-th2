@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SIN-TH2 温湿度记录仪</title>
+  <link rel="stylesheet" href="/style.css?v=7">
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>SIN-TH2</h1>
+      <p>温湿度记录仪 · 57600 8N1</p>
+      <p id="autoRefresh" class="auto-refresh">自动刷新：正在连接…</p>
+    </div>
+    <button id="sync" class="danger"><span class="button-label">设置为电脑当前时间</span></button>
+  </header>
+
+  <section class="cards">
+    <div class="card"><span>设备</span><strong id="model">—</strong></div>
+    <div class="card"><span>设备时间</span><strong id="deviceTime">—</strong></div>
+    <div class="card"><span>记录间隔</span><strong id="interval">—</strong></div>
+    <div class="card"><span>历史记录</span><strong id="count">—</strong></div>
+    <div class="card"><span>当前温度</span><strong id="temp">—</strong></div>
+    <div class="card"><span>当前湿度</span><strong id="hum">—</strong></div>
+  </section>
+
+  <section class="panel correction-panel" aria-labelledby="correctionTitle">
+    <div class="correction-copy">
+      <h2 id="correctionTitle">读数修正</h2>
+      <p>修正后读数 = 设备原始读数 + 修正值，仅影响本页面显示和下载的 CSV；配置会自动保存在浏览器中。</p>
+      <p id="correctionSummary" class="correction-summary"></p>
+    </div>
+    <div class="correction-controls">
+      <label for="tempCorrection"><span>温度修正</span><span class="input-unit"><input id="tempCorrection" type="number" value="-2.6" step="0.1" min="-20" max="20"><span>°C</span></span></label>
+      <label for="humCorrection"><span>湿度修正</span><span class="input-unit"><input id="humCorrection" type="number" value="-14.8" step="0.1" min="-50" max="50"><span>%RH</span></span></label>
+      <button id="resetCorrection" type="button">恢复默认值</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>温湿度曲线</h2>
+        <p id="loaded">尚未加载</p>
+      </div>
+      <div class="panel-actions">
+        <button id="download"><span class="button-label">下载全部 CSV</span></button>
+        <button id="loadMore"><span class="button-label">加载更早历史数据</span></button>
+      </div>
+    </div>
+    <div class="chart-legend" aria-label="曲线图例"><span class="temp-line">温度 °C</span><span class="hum-line">湿度 %RH</span></div>
+    <div class="chart-wrap"><canvas id="chart" role="img" aria-label="历史温湿度曲线"></canvas></div>
+  </section>
+
+  <section class="panel">
+    <h2>历史数据</h2>
+    <div class="table-wrap" id="scrollBox">
+      <table>
+        <thead><tr><th>序号</th><th>时间</th><th>温度 °C</th><th>湿度 %RH</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div id="sentinel">向下滚动继续加载</div>
+    </div>
+  </section>
+  <p id="status" role="status" aria-live="polite"></p>
+</main>
+<script src="/app.js?v=9"></script>
+</body>
+</html>
